@@ -1,3 +1,18 @@
+const allClearButton = document.getElementById("AC");
+const numberButtons = document.querySelectorAll(".number");
+const operatorButtons = document.querySelectorAll(".operator");
+const equalsButton = document.querySelector(".equals");
+const correctButton = document.getElementById("C");
+let currentOutput = document.querySelector(".current-output");
+let previousOutput = document.querySelector(".previous-output");
+
+let displayPlaceholder = 0;
+let displayValue = "";
+let previousValue = null;
+let operand1 = null;
+let operator = null;
+let result = null;
+
 // MATH FUNCTIONS
 function add(a, b) {
   return a + b;
@@ -17,7 +32,7 @@ function divide(a, b) {
 
 // OPERATOR FUNCTION
 function operate(a, b, operator) {
-  switch(operator) {
+  switch (operator) {
     case "+":
       return add(a, b);
     case "-":
@@ -29,33 +44,16 @@ function operate(a, b, operator) {
   }
 }
 
-//  POPULATE THE DISPLAY
-let currentOutput = document.querySelector(".current-output");
-let previousOutput = document.querySelector(".previous-output");
-
-let displayPlaceholder = 0;
-let displayValue = "";
+// DISPLAY
 currentOutput.innerText = displayPlaceholder;
-
-let previousValue = null;
 previousOutput.innerText = previousValue;
 
-let operand1 = null;
-let operand2 = null;
-let operator = null;
-
-// ! BUTTONS
-// All clear button
-const allClearButton = document.getElementById("AC");
+// BUTTONS
 allClearButton.addEventListener("click", () => {
-  displayValue = "";
-  operand2 = null;
+  displayValue = null;
   operand1 = null;
   currentOutput.innerText = displayPlaceholder;
 });
-
-// Number buttons
-const numberButtons = document.querySelectorAll(".number");
 
 numberButtons.forEach(function (numberButton) {
   numberButton.addEventListener("click", () => {
@@ -66,9 +64,6 @@ numberButtons.forEach(function (numberButton) {
   });
 });
 
-// Operator buttons
-const operatorButtons = document.querySelectorAll(".operator");
-
 operatorButtons.forEach(function (operatorButton) {
   operatorButton.addEventListener("click", () => {
     operator = operatorButton.textContent;
@@ -76,6 +71,15 @@ operatorButtons.forEach(function (operatorButton) {
   });
 });
 
+equalsButton.addEventListener("click", () => {
+  equals();
+});
+
+correctButton.addEventListener("click", () => {
+  correct();
+});
+
+// FUNCTIONS
 function calculation() {
   if (operand1 == null) {
     operand1 = displayValue;
@@ -83,25 +87,23 @@ function calculation() {
     currentOutput.innerText = displayValue;
     previousOutput.innerText = operand1;
   } else {
-    let result = operate(Number(operand1), Number(displayValue), operator);
+    result = operate(Number(operand1), Number(displayValue), operator);
     currentOutput.innerText = result;
-    previousOutput.innerText = ""
-    displayValue = "";
+    operand1 = null;
+    displayValue = result;
+    previousOutput.innerText = "";
   }
 }
 
-// const equalsButton = document.querySelector(".equals");
+function equals() {
+  result = operate(Number(operand1), Number(displayValue), operator);
+  currentOutput.innerText = result;
+  previousOutput.innerText = null;
+  operand1 = null;
+  displayValue = result;
+}
 
-// equalsButton.addEventListener("click", () => {
-//   equals();
-// });
-
-// function equals() {
-//   let result = operate(Number(operand1), Number(displayValue), operator);
-//   currentOutput.innerText = result;
-//   previousOutput.innerText = null;
-// }
-
-
-
-// TODO if operand1 is empty, displayvalue = operand1. if not, operate with displayvalue and operand1.
+function correct() {
+  displayValue = displayValue.toString().slice(0, -1);
+  currentOutput.innerText = displayValue;
+}
