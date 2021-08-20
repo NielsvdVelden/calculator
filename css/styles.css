@@ -1,0 +1,66 @@
+body {
+  font-family: "Noto Sans", sans-serif;
+  background: linear-gradient(to right, #ff701a, #d6ff43);
+}
+
+.calculator {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  min-height: 100vh;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+}
+
+.calculator > button {
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  border: 1px solid white;
+}
+
+.calculator > button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.operator {
+  background-color: rgba(240, 240, 240, 0.6) !important;
+}
+
+.operator:hover {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.equals {
+  background-color: rgba(240, 240, 240, 0.6) !important;
+}
+
+.equals:hover {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.double-button {
+  grid-column: span 2;
+}
+
+.output {
+  grid-column: 1 / -1;
+  background-color: rgb(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255);
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: flex-end;
+  word-wrap: break-word;
+  word-break: break-all;
+  padding: 10px;
+}
+
+.output .previous-output {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.25rem;
+}
+
+.output .current-output {
+    font-size: 2rem;
+}
